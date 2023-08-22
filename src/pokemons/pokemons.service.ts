@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
-export class TodosService {
+export class PokemonsService {
   constructor(private prismaService: PrismaService) {}
   async findAll(userId) {
     return this.prismaService.todo.findMany({

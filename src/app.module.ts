@@ -3,14 +3,14 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
-import { TodosModule } from './todos/todos.module';
+import { PokemonsModule } from './pokemons/pokemons.module';
 
 @Module({
   imports: [
     UsersModule,
     AuthModule,
     PrismaModule,
-    TodosModule,
+    PokemonsModule,
     ConfigModule.forRoot(),
   ],
 })

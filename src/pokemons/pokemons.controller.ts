@@ -8,36 +8,34 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { CreateTodoDto } from './dtos/create-todo.dto';
-import { TodosService } from './todos.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { Role } from '@prisma/client';
-import { EditTodoDto } from './dtos/edit-todo.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { CreatePokemonDto } from './dtos/create-pokemon.dto';
+import { EditTodoDto } from './dtos/edit-pokemon.dto';
+import { PokemonsService } from './pokemons.service';
 
-@ApiTags('Todos')
-@Controller('todos')
-export class TodosController {
-  constructor(private todosService: TodosService) {}
+@ApiTags('Pokemons')
+@Controller('pokemons')
+export class PokemonsController {
+  constructor(private pokemonsService: PokemonsService) {}
 
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @Get()
   async findAll(@Request() req) {
-    return await this.todosService.findAll(req.user.id);
+    return await this.pokemonsService.findAll(req.user.id);
   }
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post('create')
-  async login(@Request() req, @Body() createTodoDto: CreateTodoDto) {
+  async login(@Request() req, @Body() createTodoDto: CreatePokemonDto) {
     const newTodo = {
       ...createTodoDto,
       completed: false,
       userId: req.user.id,
     };
-    return await this.todosService.create(newTodo);
+    return await this.pokemonsService.create(newTodo);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -50,7 +48,7 @@ export class TodosController {
       ...editTodoDto,
       userId,
     };
-    return await this.todosService.update(id, userId, updatedTodo);
+    return await this.pokemonsService.update(id, userId, updatedTodo);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -58,6 +56,6 @@ export class TodosController {
   @Delete(':id')
   async delete(@Request() req) {
     const { id } = req.params;
-    return await this.todosService.delete(id, req.user.id);
+    return await this.pokemonsService.delete(id, req.user.id);
   }
 }
