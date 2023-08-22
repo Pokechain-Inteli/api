@@ -4,5 +4,5 @@ import { IsNotEmpty } from 'class-validator';
 export class CreatePokemonDto {
   @ApiProperty()
   @IsNotEmpty()
-  title: string;
+  name: String;
 }

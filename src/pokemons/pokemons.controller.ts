@@ -29,13 +29,12 @@ export class PokemonsController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post('create')
-  async login(@Request() req, @Body() createTodoDto: CreatePokemonDto) {
-    const newTodo = {
+  async create(@Request() req, @Body() createTodoDto: CreatePokemonDto) {
+    const newPokemon = {
       ...createTodoDto,
-      completed: false,
       userId: req.user.id,
     };
-    return await this.pokemonsService.create(newTodo);
+    return await this.pokemonsService.create(newPokemon);
   }
 
   @UseGuards(JwtAuthGuard)
